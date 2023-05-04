@@ -1,0 +1,56 @@
+1)
+>>> News.objects.all()
+<QuerySet [<News: BGU>, <News: Новость 2>, <News: Новость 1>]>
+
+2)
+>>> News.objects.create(title='Новость 2', content='Контент новости 2 [дубликат]')
+<News: Новость 2>
+
+3)
+>>> News.objects.get(pk=4) 
+<News: Новость 2>
+
+4)
+>>> News.objects.filter(title='Новость 2')
+<QuerySet [<News: Новость 2>, <News: Новость 2>]>
+
+5)
+>>> News.objects.get(pk=4)                   
+<News: Новость 2>
+>>> news3 = _
+>>> news3.title = 'Новость 3' 
+>>> news3.save()
+>>> News.objects.all()        
+<QuerySet [<News: Новость 3>, <News: BGU>, <News: Новость 2>, <News: Новость 1>]>
+
+6)
+>>> Origin.objects.order_by('-title') 
+<QuerySet [<Origin: Фронтендер по жизни>, <Origin: Новости из Нижнеуфимска>, <Origin: Н
+овости из Нижнеуфимска>, <Origin: Какой-то паблик для спортиков>, <Origin: XXXScience>,
+ <Origin: Back-end для самых маленьких>]>
+
+7)
+>>> News.objects.exclude(title='BGU') 
+<QuerySet [<News: Новость 3>, <News: Новость 2>, <News: Новость 1>]>
+
+8)
+>>> Category.objects.all().reverse()
+<QuerySet [<Category: Спорт>, <Category: Программирование>, <Category: Политика>, <Cate
+gory: Наука>, <Category: Programming>]>
+
+9)
+>>> Category.objects.filter(title__iexact='PrOGraMmINg')
+<QuerySet [<Category: Programming>]>
+
+10)
+>>> News.objects.get(title='Новость 1').category.all() 
+<QuerySet [<Category: Наука>, <Category: Политика>]>
+
+
+
+
+
+
+
+
+
