@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title_tag %}Добавление новости{% endblock %}
+
+{% block sidebar %}
+<div class="col-md-3">
+    {% include 'inc/_sidebar.html' %}
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md-9">
+    {% block title %}<h1>Добавление новости</h1> {% endblock %}
+    <form action="{% url 'add_news' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <!-- ===== The other ways to create form ===== -->
+        {% comment %}
+        <div class="form-group">
+            <label for="{{ form.title.id_for_label }}">Название: </label>
+            {{ form.title }}
+            <div class="invalid-feedback">
+                {{ form.title.errors }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="{{ form.content.id_for_label }}">Текст: </label>
+            {{ form.content }}
+            <div class="invalid-feedback">
+                {{ form.content.errors }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="{{ form.is_published.id_for_label }}">Опубликовано: </label>
+            {{ form.is_published }}
+            <div class="invalid-feedback">
+                {{ form.is_published.errors }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="{{ form.category.id_for_label }}">Категория: </label>
+            {{ form.category }}
+            <div class="invalid-feedback">
+                {{ form.category.errors }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="{{ form.origin.id_for_label }}">Источник: </label>
+            {{ form.origin }}
+            <div class="invalid-feedback">
+                {{ form.origin.errors }}
+            </div>
+        </div>
+
+        {% for field in form %}
+        <div class="form-group">
+            {{ field.label_tag }}
+            {{ field }}
+        </div>
+        <div class="ivalid-feedback">
+            {{ field.errors }}
+        </div>
+        {% endfor %}
+
+        {% endcomment %}
+
+        <button type="submit" class="btn btn-primary btn-block">Добавить</button>
+
+    </form>
+</div>
+{% endblock %}

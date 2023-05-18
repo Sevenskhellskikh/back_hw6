@@ -1,33 +1,42 @@
 {% extends 'base.html' %}
 
-{% block sidebar %}
-<div class="col-md-3">
-    {% include 'inc/_sidebar.html' %}
-</div>
-{% endblock %}
 
 {% block content %}
 <div class="col-md-9">
+    <form method="GET" class="d-flex mb-2" role="search">
+        {% for field in form %}
+        <div class="form-group me-2">
+            {{ field.label_tag }}
+            {{ field }}
+        </div>
+        <div class="ivalid-feedback">
+            {{ field.errors }}
+        </div>
+        {% endfor %}
+        <button class="btn btn-outline-success" type="submit">Искать</button>
+    </form>
     {% for item in news %}
     <div class="card mb-4">
         <div class="card-header">Категория:
             {% for category in item.category.all %}
-            <a class="nav-link d-inline" href="{% url 'category' category.pk %}">{{ category }}</a>
+            {% if not forloop.last %}
+            <a class="d-inline" href="{{ category.get_absolute_url }}">{{ category }},</a>
+            {% else %}
+            <a class="d-inline" href="{{ category.get_absolute_url }}">{{ category }}</a>
+            {% endif %}
             {% endfor %}
         </div>
         <div class="card-body d-flex">
             <div class="media me-3">
                 {% if item.photo %}
                 <img src="{{ item.photo.url }}" width="350" height="300">
-                {% else %}
-                <img src="https://picsum.photos/id/1/350/300" alt="">
                 {% endif %}
             </div>
             <div class="media-body">
                 <h5 class="card-title">{{ item.title }}</h5>
-                <a href="{% url 'origin' item.origin.pk %}" class="mb-3">{{ item.origin }}</a>
-                <p class="card-text">{{ item.content }}</p>
-                <a href="#" class="btn btn-primary">Read more...</a>
+                <a href="{% url 'origin' item.origin.pk %}" style="color: #000;" class="mb-3">{{ item.origin }}</a>
+                <p class="card-text">{{ item.content|safe|linebreaks }}</p>
+                <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Read more...</a>
             </div>
         </div>
         {% if item.created_at == item.updated_at %}
@@ -35,6 +44,10 @@
         {% else %}
         <div class="card-footer text-body-secondary">Дата публикации: {{ item.updated_at }}</div>
         {% endif %}
+    </div>
+    {% empty %}
+    <div class="alert alert-primary mt-3" role="alert">
+        К сожалению, такого у нас нет в наличии :(
     </div>
     {% endfor %}
 </div>

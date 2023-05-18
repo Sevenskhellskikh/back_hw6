@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block sidebar %}
+<div class="col-md-3">
+    {% include 'inc/_sidebar.html' %}
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="col-md-9">
+    <div class="card mb-4">
+        <div class="card-header">Категория:
+            {% for category in news_item.category.all %}
+            {% if not forloop.last %}
+            <a class="d-inline" href="{{ category.get_absolute_url }}">{{ category }},</a>
+            {% else %}
+            <a class="d-inline" href="{{ category.get_absolute_url }}">{{ category }}</a>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="card-body d-flex">
+            <div class="media me-3">
+                {% if news_item.photo %}
+                <img src="{{ news_item.photo.url }}" width="350" height="300">
+                {% else %}
+                <img src="https://picsum.photos/id/1/350/300" alt="">
+                {% endif %}
+            </div>
+            <div class="media-body">
+                <h5 class="card-title">{{ news_item.title }}</h5>
+                <a href="{% url 'update_news' news_item.pk  %}" style="position: absolute; right: 10px;">Редактировать</a>
+                <a href="{% url 'origin' news_item.origin.pk %}" style="color: #000;" class="mb-3">{{ news_item.origin }}</a>
+                <p class="card-text">{{ news_item.content|safe|linebreaks }}</p>
+            </div>
+        </div>
+        <a href="{% url 'delete_news' news_item.pk %}" style="color: red; margin: 10px 10px 10px auto;">Удалить</a>
+        {% if news_item.created_at == news_item.updated_at %}
+        <div class="card-footer text-body-secondary">Дата публикации: {{ news_item.created_at }}</div>
+        {% else %}
+        <div class="card-footer text-body-secondary">Дата публикации: {{ news_item.updated_at }}</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
