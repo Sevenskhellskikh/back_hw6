@@ -30,3 +30,28 @@ jobs:
         working-directory: ./core
         run: |
           python manage.py test news
+
+  build:
+      name: Run build and push
+      if: github.ref == 'refs/heads/main'
+      runs-on: windows-2019
+      needs: tests
+
+      steps:
+        - uses: actions/checkout@v3
+
+        - name: Setup Docker Buildx
+          uses: docker/setup-buildx-action@v1
+
+        - name: login to docker
+          uses: docker/login-action@v1
+          with:
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+        - name: build and push
+          uses: docker/build-push-action@v2
+          with:
+            contex: .
+            push: true
+            tags: ${{ secrets.DOCKERHUB_REPOSITORY }}
