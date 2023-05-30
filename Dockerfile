@@ -2,7 +2,7 @@
 FROM python:3.10.2-slim
 
 # Копируем requirements.txt в контейнер в указанную директорию
-COPY requirements.txt /tmp
+COPY core/requirements.txt /tmp
 
 # Запускаем requirements.txt из созданной директории
 RUN pip install -r /tmp/requirements.txt
