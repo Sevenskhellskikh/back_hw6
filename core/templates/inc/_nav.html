@@ -7,13 +7,27 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% if request.user.is_superuser %}
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="/admin/">Панель администратора</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'add_news' %}">Добавить новость</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'mail' %}">Обратная связь</a>
+                </li>
+                {% endif %}
             </ul>
+            {% if request.user.is_authenticated %}
+                <span class="navbar-text">
+                    Добро пожаловать, {{ user.username }} | <a href="{% url 'logout' %}">Выход</a>
+                </span>
+            {% else %}
+                <span class="navbar-text">
+                    <a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Вход</a>
+                </span>
+            {% endif %}
         </div>
     </div>
 </nav>

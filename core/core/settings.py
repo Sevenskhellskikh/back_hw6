@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from core.secret import secret_password
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -128,3 +130,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'mukhitov.aaa@list.ru'
+EMAIL_HOST_PASSWORD = secret_password
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True

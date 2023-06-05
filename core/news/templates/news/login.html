@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title_tag %}Авторизация{% endblock %}
+
+{% block sidebar %}
+<div class="col-md-3">
+    {% include 'inc/_sidebar.html' %}
+</div>
+{% endblock %}
+
+{% block content %}
+    <h1>Вход в систему</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary btn-block">Войти</button>
+    </form>
+
+{% endblock %}

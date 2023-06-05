@@ -7,7 +7,6 @@
 {% endblock %}
 
 {% block content %}
-<div class="col-md-9">
     <div class="card mb-4">
         <div class="card-header">Категория:
             {% for category in news_item.category.all %}
@@ -40,5 +39,4 @@
         <div class="card-footer text-body-secondary">Дата публикации: {{ news_item.updated_at }}</div>
         {% endif %}
     </div>
-</div>
 {% endblock %}

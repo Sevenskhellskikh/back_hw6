@@ -3,6 +3,9 @@
 
 <ul class="list-group">
     {% for item in categories %}
-    <a href="{% url 'category' item.pk %}" class="list-group-item">{{ item.title }}</a>
+    <a href="{% url 'category' item.pk %}" class="list-group-item">
+        {{ item.title }}
+        <span class="badge bg-primary rounded-pill">{{ item.count }}</span>
+    </a>
     {% endfor %}
 </ul>

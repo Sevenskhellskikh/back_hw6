@@ -11,4 +11,8 @@ urlpatterns = [
     path('news/add-news', CreateNews.as_view(), name='add_news'),
     path('news/update-news/<int:pk>', UpdateNews.as_view(), name='update_news'),
     path('news/delete-news/<int:pk>', DeleteNews.as_view(), name='delete_news'),
+    path('register/', register, name='register'),
+    path('login/', user_login, name='login'),
+    path('logout/', user_logout, name='logout'),
+    path('mail/', message_send, name='mail'),
 ]

@@ -1,7 +1,6 @@
 {% extends 'news/add_news.html' %}
 
 {% block content %}
-<div class="col-md-9">
     {% block title %}<h1>Редактирование новости</h1> {% endblock %}
     <form action="{% url 'update_news' news.pk %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -19,5 +18,4 @@
         <button type="submit" class="btn btn-primary btn-block">Добавить</button>
 
     </form>
-</div>
 {% endblock %}
